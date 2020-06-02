@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/materials-switches.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" id="dark-link" disabled href="/dark-mode.css">
+</head>
+
+<body>
+  <input id="dark-mode" type="checkbox" class="darkcheck"></input>
+    <div class="d-flex align-items-center screen">
+        <div class="container fluid mt-3">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="">Leerlingnummer:</label>
+                    <input type="text" class="form-control mb-3 login" autofocus name="number" id="number"
+                        placeholder="Enter leerlingnummer">
+                    <hr class="bg-light mb-3">
+                    <label for="">Password:</label>
+                    <input type="password" class="form-control mb-3 login" name="password" id="password"
+                        placeholder="Enter password">
+                    <hr class="bg-light mb-3">
+                    <button class="btn-primary btn float-right" id="save">Save</button>
+                    <div class="material-switch pull-right enable">
+                        <input id="switch" type="checkbox">
+                        <label for="switch" class="label-primary"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/save.js"></script>
+</body>
+
+</html>

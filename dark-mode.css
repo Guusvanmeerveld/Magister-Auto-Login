@@ -1,0 +1,25 @@
+body {
+    background-color: #282a2d;
+}
+* {
+    color: #c5c5c5!important;   
+}
+ .input-group-text {
+    color: #fff;
+    background-color: #1e2226;
+    border-color: #383f47;
+}
+.form-control, .bg-light {
+    background-color: #22262a!important;
+    color: #fff!important;
+    border-color: #383f47;
+}
+.btn-primary {
+    background-color: #0167d4;
+}
+.btn-primary:hover {
+    background-color: #0056b2;
+}
+.active.btn-primary {
+    background-color: #0052aa!important;
+}
