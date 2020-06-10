@@ -8,9 +8,9 @@ Automagically logs into Magister 6 so you won't have to.
 
 ## Authors
 
-* **Guus van Meerveld** - *Main Developer* - [Guus van Meerveld](https://github.com/Guusvanmeerveld)
-* **Martijn Oosterhuis** - *Main Developer* - [Martijn Oosterhuis](https://github.com/devostex)
-* **Sam Taen** - *Absolutely Nothing* - [Sam Taen](samtaen.nl)
+* **Guus van Meerveld** - *Main Developer* - [Github](https://github.com/Guusvanmeerveld)
+* **Martijn Oosterhuis** - *Main Developer* - [Website](https://mb-o.nl/)
+* **Sam Taen** - *Absolutely Nothing* - [Website](samtaen.nl)
 
 See also the list of [contributors](https://github.com/Guusvanmeerveld/magister-auto-login/graphs/contributors) who participated in this project.
 
