@@ -16,4 +16,4 @@ See also the list of [contributors](https://github.com/Guusvanmeerveld/magister-
 
 ## License
 
-This project is licensed under the CC BY-SA 3.0 NL License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT license - see the [LICENSE](LICENSE) file for details.
