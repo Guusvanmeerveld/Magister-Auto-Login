@@ -22,7 +22,7 @@ function save() {
     var password = d("password").value;
     
     try {
-        chrome.storage.sync.set({
+        browser.storage.sync.set({
         "number": number,
         "password": password
         });
@@ -35,7 +35,7 @@ function save() {
 };
 
 function onLoad() {
-    chrome.storage.sync.get(['number', 'password'], function (result) {
+    browser.storage.sync.get(['number', 'password'], function (result) {
         if (result.number !== undefined){
             
             d("number").value = result.number
@@ -46,11 +46,11 @@ function onLoad() {
         };
     });
 
-    chrome.storage.sync.get(['enabled'], function (result) {
+    browser.storage.sync.get(['enabled'], function (result) {
         d("switch").checked = result.enabled
     });
 
-    chrome.storage.sync.get(['darkmode'], function (result) {
+    browser.storage.sync.get(['darkmode'], function (result) {
         d("dark-mode").checked = result.darkmode
         d("dark-link").disabled = d("dark-mode").checked ? false : true
     });
@@ -61,17 +61,17 @@ function onLoad() {
 
 function toggle() {
     var checked = d("switch").checked;
-    chrome.storage.sync.set({
+    browser.storage.sync.set({
         "enabled": checked
     });
 
-    chrome.browserAction.setBadgeText({ 
+    browser.browserAction.setBadgeText({ 
         text: checked ? "ON" : "OFF"
     });
 };
 
 function darkMode() {
-    chrome.storage.sync.set({
+    browser.storage.sync.set({
         "darkmode": d("dark-mode").checked
     });
 

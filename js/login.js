@@ -1,10 +1,10 @@
 const d = document.getElementById.bind(document);
 
-// user object moet gemaakt worden vanuit chrome.storage.sync
+// user object moet gemaakt worden vanuit browser.storage.sync
 
 var snooze = ms => new Promise(res => setTimeout(res, ms));
 function login() {
-    chrome.storage.sync.get(['number', 'password'], async function (result) {
+    browser.storage.sync.get(['number', 'password'], async function (result) {
         console.log(result);
         
         await waitForSel("username");
@@ -43,7 +43,7 @@ function waitForSel(s) {
     });
 };
 
-chrome.storage.sync.get(['enabled'], function (result){
+browser.storage.sync.get(['enabled'], function (result){
     if(result.enabled){
         login();
     };

@@ -25,5 +25,10 @@
   "permissions": [
     "https://accounts.magister.net/*",
     "storage"
-  ]
+  ],
+  "applications": {
+    "gecko": {
+      "id": "auto-login@g-vm.nl"
+    }
+  }
 }
