@@ -1,3 +1,5 @@
+<p align="center"><img src="icons/banner.png" width="400"></p>
+
 # Magister Auto-Login
 
 Automagically logs into Magister 6 so you won't have to.
