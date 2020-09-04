@@ -2,6 +2,15 @@
 
 Automagically logs into Magister 6 so you won't have to.
 
+## How to install
+
+### Chrome
+Click [here](https://chrome.google.com/webstore/detail/magister-auto-login/cekhhgcjpkahghpgeafhmkkjhidodplk/related?hl=nl) and click on "Add to Chrome".
+
+### Firefox
+
+Click [here](https://addons.mozilla.org/en-US/firefox/addon/magister-auto-login/) and click on "Add to Firefox".
+
 ## Built With
 
 * [Bootstrap](https://getbootstrap.com) - CSS framework used
