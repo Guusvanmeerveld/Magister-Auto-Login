@@ -32,9 +32,9 @@ function save() {
         "password": password
         });
 
-        d("save").innerHTML = "Saved!"
+        d("save").innerHTML = "Opgeslagen!"
     } catch (e) {
-        d("save").innerHTML = "Error"
+        d("save").innerHTML = "Fout"
         d("save").className = "btn btn-danger float-right"
     }
 };
@@ -62,7 +62,7 @@ function onLoad() {
 
     chrome.storage.sync.get(['darkmode'], function (result) {
         d("dark-mode").checked = result.darkmode
-        d("dark-link").disabled = d("dark-mode").checked ? false : true
+        d("dark-link").disabled = !d("dark-mode").checked
     });
 
     d("switch").addEventListener("click", toggle)
@@ -84,10 +84,8 @@ function darkMode() {
     chrome.storage.sync.set({
         "darkmode": d("dark-mode").checked
     });
-
-    console.log(!d("dark-mode").checked);
     
-    d("dark-link").disabled = d("dark-mode").checked ? false : true
+    d("dark-link").disabled = !d("dark-mode").checked
 
 }
 

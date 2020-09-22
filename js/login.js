@@ -7,17 +7,19 @@ var snooze = ms => new Promise(res => setTimeout(res, ms));
 function login() {
     chrome.storage.sync.get(['school','number', 'password'], async function (result) {
 
-        await waitForSel("#scholenkiezer_value");
-
-        if (d("scholenkiezer_value") && result.number) {
-            d("scholenkiezer_value").value = result.school;
-            d("scholenkiezer_value").dispatchEvent(new Event("input"));
-        };
-
-        await waitForSel(".selected");
-
-        if (q(".selected")) {
-            q(".selected").click();
+        if (d("scholenkiezer_value")) {
+            await waitForSel("#scholenkiezer_value");
+    
+            if (d("scholenkiezer_value") && result.number) {
+                d("scholenkiezer_value").value = result.school;
+                d("scholenkiezer_value").dispatchEvent(new Event("input"));
+            };
+    
+            await waitForSel(".selected");
+    
+            if (q(".selected")) {
+                q(".selected").click();
+            }
         }
         
         await waitForSel("#username");

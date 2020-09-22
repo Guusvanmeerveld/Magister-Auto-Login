@@ -1,6 +1,6 @@
 {
   "name": "Magister Auto-Login",
-  "version": "1.1",
+  "version": "2.0",
   "manifest_version": 2,
   "description": "Auto-Login for Magister 6 webapp.",
   "options_page": "options/index.html",
