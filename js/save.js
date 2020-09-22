@@ -6,6 +6,9 @@ d("save").addEventListener("click", save);
 qAll(".login").forEach(s => {
     s.addEventListener("keydown", e => {
         if (e.key == "Enter") {
+            if (e.target.id == "school") {
+                d("number").focus()
+            };
             if (e.target.id == "number") {
                 d("password").focus()
             };
@@ -18,11 +21,13 @@ qAll(".login").forEach(s => {
 
 function save() {
 
+    var school = d("school").value;
     var number = d("number").value;
     var password = d("password").value;
     
     try {
         chrome.storage.sync.set({
+            "school": school,
         "number": number,
         "password": password
         });
@@ -35,7 +40,12 @@ function save() {
 };
 
 function onLoad() {
-    chrome.storage.sync.get(['number', 'password'], function (result) {
+    chrome.storage.sync.get(['school', 'number', 'password'], function (result) {
+        if (result.school !== undefined) {
+
+            d("school").value = result.school
+        };
+
         if (result.number !== undefined){
             
             d("number").value = result.number
