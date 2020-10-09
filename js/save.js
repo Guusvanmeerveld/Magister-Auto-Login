@@ -52,7 +52,7 @@ function onLoad() {
         };
 
         if (result.password !== undefined) {
-            d("password").value = result.password
+            d("password").value = "lolleukgeprobeerd"
         };
     });
 
