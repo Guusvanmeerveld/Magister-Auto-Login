@@ -5,12 +5,12 @@ const q = document.querySelector.bind(document);
 
 var snooze = ms => new Promise(res => setTimeout(res, ms));
 function login() {
-    chrome.storage.sync.get(['school','number', 'password'], async function (result) {
+    chrome.storage.sync.get(['school', 'number', 'password'], async function (result) {
 
         if (d("scholenkiezer_value")) {
             await waitForSel("#scholenkiezer_value");
     
-            if (d("scholenkiezer_value") && result.number) {
+            if (d("scholenkiezer_value") && result.school) {
                 d("scholenkiezer_value").value = result.school;
                 d("scholenkiezer_value").dispatchEvent(new Event("input"));
             };
