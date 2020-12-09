@@ -1,5 +1,6 @@
 const d = document.getElementById.bind(document);
 const q = document.querySelector.bind(document);
+document.querySelector('img[alt="Magister"]').remove(); // verwijderen van animatie linksboven
 
 // user object moet gemaakt worden vanuit chrome.storage.sync
 

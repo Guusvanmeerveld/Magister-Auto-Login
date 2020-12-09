@@ -27,7 +27,7 @@ function save() {
     
     try {
         chrome.storage.sync.set({
-            "school": school,
+        "school": school,
         "number": number,
         "password": password
         });
@@ -36,6 +36,7 @@ function save() {
     } catch (e) {
         d("save").innerHTML = "Fout"
         d("save").className = "btn btn-danger float-right"
+        console.error(e);
     }
 };
 
