@@ -1,0 +1,24 @@
+{
+	"name": "Magister Auto-Login",
+	"version": "3.0",
+	"manifest_version": 2,
+	"description": "Auto-Login for Magister 6 webapp.",
+	"options_page": "@pages/options.html",
+	"homepage_url": "http://mb-o.nl/autologin",
+	"background": {
+		"scripts": ["/background.js"],
+		"persistent": true
+	},
+	"browser_action": {
+		"default_title": "Auto-login",
+		"default_popup": "@pages/popup.html"
+	},
+	"icons": {
+		"16": "@icons/16x.png",
+		"32": "@icons/32x.png",
+		"48": "@icons/48x.png",
+		"128": "@icons/128x.png",
+		"256": "@icons/256x.png"
+	},
+	"permissions": ["https://accounts.magister.net/*", "storage"]
+}

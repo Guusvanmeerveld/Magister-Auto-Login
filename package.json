@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "chokidar": "^3.5.2",
+    "fs-extra": "^10.0.0",
+    "minify": "^7.0.2",
+    "prettier": "^2.3.2",
+    "sass": "^1.36.0"
+  },
+  "scripts": {
+    "dev": "node src/builder/watch",
+    "build": "node src/builder",
+    "prettify": "prettier --write src"
+  }
+}
