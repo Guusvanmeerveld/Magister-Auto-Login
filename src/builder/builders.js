@@ -5,6 +5,8 @@ const minify = require('minify');
 const sass = require('sass');
 const chalk = require('chalk');
 
+const { performance } = require('perf_hooks');
+
 const sassExtension = '.sass';
 
 const config = require(join(process.cwd(), 'builder.config.js'));
