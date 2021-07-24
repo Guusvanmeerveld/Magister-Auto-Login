@@ -1,4 +1,4 @@
-<p align="center"><img src="icons/banner.png" width="400"></p>
+<p align="center"><img src="src/icons/banner.png" width="400"></p>
 
 # Magister Auto-Login
 
@@ -14,9 +14,9 @@ Click [here](https://mb-o.nl/autologin) and click on "Add to Browser".
 
 ## Authors
 
-* **Guus van Meerveld** - *Main Developer* - [Github](https://github.com/Guusvanmeerveld)
+* **Guus van Meerveld** - *Main Developer* - [Github](https://guusvanmeerveld.dev)
 * **Martijn Oosterhuis** - *Main Developer* - [Website](https://mb-o.nl/)
-* **Sam Taen** - *Absolutely Nothing* - [Website](samtaen.nl)
+* **Sam Taen** - *Absolutely Nothing* - [Website](https://samtaen.nl)
 
 See also the list of [contributors](https://github.com/Guusvanmeerveld/magister-auto-login/graphs/contributors) who participated in this project.
 
