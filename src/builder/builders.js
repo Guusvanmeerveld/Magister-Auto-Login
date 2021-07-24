@@ -64,8 +64,7 @@ const compile = (file, type, callback) => {
 
             return;
         default:
-
-            return minify(file).then(callback).catch(console.log('Error compiling file ' + file))
+            return minify(file).then(callback).catch((err) => console.log('Error compiling file ' + file + ':' + err))
 
     }
 };
