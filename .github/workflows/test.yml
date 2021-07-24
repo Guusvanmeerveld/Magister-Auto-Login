@@ -18,6 +18,4 @@ jobs:
       - name: Install Dependencies
         run: yarn install
       - name: Check for syntax errors
-        run: yarn test-build
-      - name: ESlint check
-        run: yarn lint
+        run: yarn build
