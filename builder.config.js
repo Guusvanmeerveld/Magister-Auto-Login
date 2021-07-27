@@ -39,7 +39,7 @@ module.exports = {
         },
         {
             input: 'manifest.json',
-            output: 'manifest.json',
+            output: '.',
             type: 'file',
         }
     ]

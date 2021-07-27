@@ -1,65 +1,74 @@
-const d = document.getElementById.bind(document);
-const q = document.querySelector.bind(document);
-document.querySelector('img[alt="Magister"]').remove(); // verwijderen van animatie linksboven
+const $ = document.querySelector.bind(document);
 
-// user object moet gemaakt worden vanuit chrome.storage.sync
+const getSettings = (callback) => {
+	chrome.storage.sync.get(['school', 'number', 'password'], callback);
+};
 
-var snooze = (ms) => new Promise((res) => setTimeout(res, ms));
-function login() {
-	chrome.storage.sync.get(['school', 'number', 'password'], async function (result) {
-		if (d('scholenkiezer_value')) {
-			await waitForSel('#scholenkiezer_value');
+const login = () => {
+	getSettings(async ({ school, number, password }) => {
+		const schoolPicker = $('scholenkiezer_value');
 
-			if (d('scholenkiezer_value') && result.school) {
-				d('scholenkiezer_value').value = result.school;
-				d('scholenkiezer_value').dispatchEvent(new Event('input'));
+		if (schoolPicker) {
+			if (school) {
+				schoolPicker.value = school;
+				schoolPicker.dispatchEvent(new Event('input'));
+			} else {
+				return;
 			}
 
-			await waitForSel('.selected');
+			const selected = '.selected';
 
-			if (q('.selected')) {
-				q('.selected').click();
-			}
+			await awaitSelector(selected);
+
+			$(selected).click();
 		}
 
-		await waitForSel('#username');
+		const username = '#username';
 
-		if (d('username') && result.number) {
-			d('username').value = result.number;
-			d('username').dispatchEvent(new Event('input'));
+		await awaitSelector(username);
+
+		if (number) {
+			$(username).value = number;
+			$(username).dispatchEvent(new Event('input'));
+		} else {
+			return;
 		}
 
-		await waitForSel('#username_submit');
-		if (d('username_submit')) {
-			d('username_submit').click();
+		const usernameSubmit = '#username_submit';
+
+		await awaitSelector(usernameSubmit);
+
+		$(usernameSubmit).click();
+
+		const rswpPassword = '#rswp_password';
+
+		await awaitSelector(rswpPassword);
+
+		if (password) {
+			$(rswpPassword).value = password;
+			$(rswpPassword).dispatchEvent(new Event('input'));
+		} else {
+			return;
 		}
 
-		await waitForSel('#rswp_password');
+		await awaitSelector('[id*=_submit]');
 
-		if (d('rswp_password') && result.password) {
-			d('rswp_password').value = result.password;
-			d('rswp_password').dispatchEvent(new Event('input'));
-		}
+		$('#rswp_submit').click();
+	});
+};
 
-		await waitForSel('[id*=_submit]');
-		if (d('rswp_submit')) {
-			d('rswp_submit').click();
+const awaitSelector = (selector) => {
+	return new Promise((resolve, reject) => {
+		const element = document.querySelector(selector);
+
+		if (element) {
+			resolve(element);
+		} else {
+			setTimeout(() => awaitSelector(selector).then(resolve, reject), 100);
 		}
 	});
-}
+};
 
-function waitForSel(s) {
-	return new Promise((res) => {
-		setInterval(() => {
-			if (q(s)) {
-				res();
-			}
-		}, 10);
-	});
-}
-
-chrome.storage.sync.get(['enabled'], function (result) {
-	if (result.enabled) {
-		login();
-	}
+chrome.storage.sync.get('enabled', (enabled) => {
+	enabled ? login() : null;
 });

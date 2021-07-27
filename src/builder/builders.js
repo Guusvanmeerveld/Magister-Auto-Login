@@ -1,9 +1,12 @@
-const fs = require('fs-extra');
 const { join } = require('path');
+const fs = require('fs-extra');
+const util = require('util');
 
 const minify = require('minify');
 const sass = require('sass');
 const chalk = require('chalk');
+
+const sassRender = util.promisify(sass.render);
 
 const { performance } = require('perf_hooks');
 
@@ -14,84 +17,82 @@ const config = require(join(process.cwd(), 'builder.config.js'));
 /**
  * Compiles files in a directory to a given directory
  * @param {string} dir - The input directory
- * @param {string} outDir - The output directory
- * @param {string} fileExtension - The file extension
+ * @param {string} outPath - The output directory
+ * @param {'sass' | 'js' | 'html' | 'other' | 'file'} fileType - The file type
  * @returns
  */
-const builder = (dir, outDir, fileExtension) =>
-    dirChecker(outDir, () =>
-        fs.readdir(dir, (err, files) => {
-            if (err) throw new Error(err);
+const builder = async (path, outPath, fileType) => {
+	const isDirectory = (await fs.lstat(path)).isDirectory();
 
-            // Filter out other files
-            files = files.filter((file) => file.endsWith(fileExtension));
+	if (isDirectory) {
+		if (fileType === 'other') {
+			await fs.copy(path, outPath);
+			return;
+		}
 
-            // Minify the files & write them to the build directory
-            files.forEach((file) => {
-                const t0 = performance.now();
+		let files = await fs.readdir(path);
 
-                compile(join(dir, file), fileExtension, (data) => {
-                    const withPaths = replacePaths(data);
+		// Filter out other files
+		files = files.filter((file) => file.endsWith(fileType));
 
-                    if (fileExtension === 'sass') {
-                        file = file.replace(sassExtension, '.min.css');
-                    }
-
-                    fs.writeFile(join(outDir, file), withPaths, (err) => {
-                        if (err) throw new Error(err);
-
-                        const t1 = performance.now();
-
-                        console.log(`${chalk.gray(file)} ${Math.round(t1 - t0)}ms`);
-                    });
-                });
-            });
-        })
-    );
-
-/**
- * Compiles a string of data.
- * @param {string} data
- * @param {'sass' | 'js' | 'html'} type
- * @param {(data) => void}  callback
- */
-const compile = (file, type, callback) => {
-    switch (type) {
-        case 'sass':
-            sass.render({ file, outputStyle: 'compressed' }, (err, data) =>
-                callback(data.css.toString())
-            );
-
-            return;
-        default:
-            return minify(file).then(callback).catch((err) => console.log('Error compiling file ' + file + ':' + err))
-
-    }
+		// Minify the files & write them to the build directory
+		files.forEach((file) => fileBuilder(join(path, file), outPath, fileType));
+	} else {
+		fileBuilder(path, outPath, fileType);
+	}
 };
 
 /**
  * Compiles a file
- * @param {string} file - The input file
+ * @param {string} file - The input files path
+ * @param {'sass' | 'js' | 'html' | 'file'} fileType - The file type
  */
-const fileBuilder = (file, output) =>
-    fs.readFile(file, { encoding: 'utf-8' }, (err, data) => {
-        if (err) throw new Error(err);
+const fileBuilder = async (file, outPath, fileType) => {
+	const t0 = performance.now();
 
-        const t0 = performance.now();
+	const compiled = await compile(file, fileType);
 
-        const withPaths = replacePaths(data);
+	if (compiled) {
+		if (fileType === 'sass') {
+			file = file.replace(sassExtension, '.min.css');
+		}
 
-        fs.writeFile(output, withPaths, (err) => {
-            if (err) throw new Error(err);
+		const path = file.split('/');
+		const fileName = path[path.length - 1];
 
-            const t1 = performance.now();
+		const withPaths = replacePaths(compiled);
 
-            const path = file.split('/');
-            const fileName = path[path.length - 1];
+		await fs.ensureDir(outPath);
 
-            console.log(`${chalk.gray(fileName)} ${Math.round(t1 - t0)}ms`);
-        });
-    });
+		await fs.writeFile(join(outPath, fileName), withPaths);
+
+		const t1 = performance.now();
+
+		console.log(`${chalk.gray(fileName)} ${Math.round(t1 - t0)}ms`);
+	}
+};
+
+/**
+ * Compiles a string of data given its type.
+ * @param {string} data
+ * @param {'sass' | 'js' | 'html' | 'file'} fileType
+ * @returns {Promise<string>} The compiled data
+ */
+const compile = async (file, fileType) => {
+	switch (fileType) {
+		case 'sass':
+			const data = await sassRender({ file, outputStyle: 'compressed' });
+
+			return data.css.toString();
+		case 'js':
+		case 'html':
+			return await minify(file).catch((err) =>
+				console.log('Error compiling file ' + file + ':' + err)
+			);
+		default:
+			return await fs.readFile(file, { encoding: 'utf-8' });
+	}
+};
 
 /**
  * Replaces all specified paths in builder.config.js with their definitions
@@ -99,31 +100,18 @@ const fileBuilder = (file, output) =>
  * @returns
  */
 const replacePaths = (data) => {
-    if (config.paths) {
-        Object.keys(config.paths).forEach((key) => {
-            data = data.replace(new RegExp(key, 'g'), '/' + config.paths[key]);
-        });
+	if (config.paths) {
+		Object.keys(config.paths).forEach((key) => {
+			data = data.replace(new RegExp(key, 'g'), '/' + config.paths[key]);
+		});
 
-        data = data.replace(sassExtension, '.min.css');
-    }
+		data = data.replace(sassExtension, '.min.css');
+	}
 
-    return data;
-};
-
-/**
- * Checks if a directory exists and creates it if it doesn't.
- * @param {string} dir - The directory to check
- * @param {() => void} callback - The callback function
- */
-const dirChecker = (dir, callback) => {
-    if (!fs.existsSync(dir)) {
-        fs.mkdir(dir, { recursive: true }, () => callback());
-    } else {
-        callback();
-    }
+	return data;
 };
 
 module.exports = {
-    builder,
-    fileBuilder,
+	builder,
+	fileBuilder,
 };
