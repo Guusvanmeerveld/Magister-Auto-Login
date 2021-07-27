@@ -61,7 +61,7 @@ const fileBuilder = async (file, outPath, fileType) => {
 		const path = file.split('/');
 		const fileName = path[path.length - 1];
 
-		const withPaths = replacePaths(compiled);
+		const withPaths = replaceFileContents(compiled);
 
 		await fs.ensureDir(outPath);
 
@@ -101,7 +101,7 @@ const compile = async (file, fileType) => {
  * @param {string} data - The data that needs its paths replaced
  * @returns
  */
-const replacePaths = (data) => {
+const replaceFileContents = (data) => {
 	if (config.paths) {
 		Object.keys(config.paths).forEach((key) => {
 			data = data.replace(new RegExp(key, 'g'), '/' + config.paths[key]);
@@ -110,6 +110,10 @@ const replacePaths = (data) => {
 	}
 
 	data = data.replace(new RegExp(sassExtension, 'g'), '.min.css');
+
+	if (process.env.TARGET_BROWSER != 'chrome') {
+		data = data.replace(new RegExp('chrome.', 'g'), 'browser.')
+	}
 
 	return data;
 };
