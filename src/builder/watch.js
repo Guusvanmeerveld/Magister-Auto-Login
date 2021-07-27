@@ -25,7 +25,7 @@ watcher.on('change', async (path) => {
 
 	if (config) {
 		const fileType = path.split('.').pop();
-		const outPath = join(process.cwd(), 'dist', config.output);
+		const outPath = join(distDir, config.output);
 
 		await fileBuilder(path, outPath, fileType);
 	}

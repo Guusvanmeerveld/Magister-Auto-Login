@@ -35,7 +35,7 @@ module.exports = {
         {
             input: 'libraries',
             output: 'lib',
-            type: 'other',
+            type: 'css',
         },
         {
             input: 'manifest.json',

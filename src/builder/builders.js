@@ -45,7 +45,7 @@ const builder = async (path, outPath, fileType) => {
 /**
  * Compiles a file
  * @param {string} file - The input files path
- * @param {'sass' | 'js' | 'html' | 'file'} fileType - The file type
+ * @param {'sass' | 'js' | 'html' | 'css' | 'file'} fileType - The file type
  */
 const fileBuilder = async (file, outPath, fileType) => {
 	const t0 = performance.now();
@@ -56,6 +56,7 @@ const fileBuilder = async (file, outPath, fileType) => {
 		if (fileType === 'sass') {
 			file = file.replace(sassExtension, '.min.css');
 		}
+
 
 		const path = file.split('/');
 		const fileName = path[path.length - 1];
@@ -75,7 +76,7 @@ const fileBuilder = async (file, outPath, fileType) => {
 /**
  * Compiles a string of data given its type.
  * @param {string} data
- * @param {'sass' | 'js' | 'html' | 'file'} fileType
+ * @param {'sass' | 'js' | 'html' | 'css' | 'file'} fileType
  * @returns {Promise<string>} The compiled data
  */
 const compile = async (file, fileType) => {
@@ -85,6 +86,7 @@ const compile = async (file, fileType) => {
 
 			return data.css.toString();
 		case 'js':
+		case 'css':
 		case 'html':
 			return await minify(file).catch((err) =>
 				console.log('Error compiling file ' + file + ':' + err)
@@ -105,8 +107,9 @@ const replacePaths = (data) => {
 			data = data.replace(new RegExp(key, 'g'), '/' + config.paths[key]);
 		});
 
-		data = data.replace(sassExtension, '.min.css');
 	}
+
+	data = data.replace(new RegExp(sassExtension, 'g'), '.min.css');
 
 	return data;
 };
