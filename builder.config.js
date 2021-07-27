@@ -33,7 +33,7 @@ module.exports = {
             type: 'other',
         },
         {
-            input: 'lib',
+            input: 'libraries',
             output: 'lib',
             type: 'other',
         },
