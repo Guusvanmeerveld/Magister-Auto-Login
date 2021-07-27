@@ -1,10 +1,10 @@
 const { join } = require('path');
 const fs = require('fs-extra');
 
-const srcDir = join(process.cwd(), 'src');
-const distDir = join(process.cwd(), 'dist');
-
 const config = require(join(process.cwd(), 'builder.config.js'));
+
+const srcDir = join(process.cwd(), config.root);
+const distDir = join(process.cwd(), config.out);
 
 const { builder } = require('./builders');
 

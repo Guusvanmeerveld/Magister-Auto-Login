@@ -3,10 +3,10 @@ const { join } = require('path');
 
 const { fileBuilder } = require('./builders');
 
-const { interpreter } = require(join(process.cwd(), 'builder.config.js'));
+const config = require(join(process.cwd(), 'builder.config.js'));
 
-const srcDir = join(process.cwd(), 'src');
-const distDir = join(process.cwd(), 'dist');
+const srcDir = join(process.cwd(), config.root);
+const distDir = join(process.cwd(), config.out);
 
 const watcher = chokidar.watch(srcDir, {
 	persistent: true,
@@ -20,12 +20,11 @@ watcher.on('change', async (path) => {
 
 	splittedPath.pop();
 
+	const conf = config.interpreter.find((conf) => conf.input == (splittedPath.join('/') || '.'));
 
-	const config = interpreter.find((conf) => conf.input == (splittedPath.join('/') || '.'));
-
-	if (config) {
+	if (conf) {
 		const fileType = path.split('.').pop();
-		const outPath = join(distDir, config.output);
+		const outPath = join(distDir, conf.output);
 
 		await fileBuilder(path, outPath, fileType);
 	}

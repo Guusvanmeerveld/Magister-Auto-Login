@@ -1,4 +1,6 @@
 module.exports = {
+    root: 'src',
+    out: 'dist',
     paths: {
         "@stylesheets": "css",
         "@scripts": "js",
