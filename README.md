@@ -1,24 +1,43 @@
-<p align="center"><img src="src/icons/banner.png" width="400"></p>
+<p align="center"><img src="src/icons/256x.png" width="150"></p>
 
 # Magister Auto-Login
 
-Automagically logs into Magister 6 so you won't have to.
+A Chrome, Firefox & Edge compatible web extension that automatically logs into Magister 6 for you.
 
 ## How to install
 
-Click [here](https://mb-o.nl/autologin) and click on "Add to Browser".
+### One click install
 
-## Built With
+See list for all download links below:
 
-* [Bootstrap](https://getbootstrap.com) - CSS framework used
+- [Chrome](https://chrome.google.com/webstore/detail/magister-auto-login/cekhhgcjpkahghpgeafhmkkjhidodplk)
+- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/magister-auto-login/)
+- [Edge]()
+
+### Build from source
+
+_Requirements_:
+
+- Yarn or NPM
+- NodeJS v12+
+- Git
+
+```bash
+git clone https://github.com/Guusvanmeerveld/Magister-Auto-Login.git Magister-Auto-Login
+cd Magister-Auto-Login
+yarn build
+```
+
+## Libraries used
+
+- [Milligram](https://milligram.io) - Main CSS framework
+- [Normalize.css](https://necolas.github.io/normalize.css/) - Utility CSS framework
+- [Google Fonts](https://fonts.google.com) -
 
 ## Authors
 
-* **Guus van Meerveld** - *Main Developer* - [Github](https://guusvanmeerveld.dev)
-* **Martijn Oosterhuis** - *Main Developer* - [Website](https://mb-o.nl/)
-* **Sam Taen** - *Absolutely Nothing* - [Website](https://samtaen.nl)
-
-See also the list of [contributors](https://github.com/Guusvanmeerveld/magister-auto-login/graphs/contributors) who participated in this project.
+- **Guus van Meerveld** - _Main Developer_ - [Website](https://guusvanmeerveld.dev)
+- **Martijn Oosterhuis** - _Main Developer_ - [Website](https://mboosterhuis.nl)
 
 ## License
 
