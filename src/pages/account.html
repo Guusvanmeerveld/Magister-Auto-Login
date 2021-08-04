@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Account toevoegen | Magister Auto-Login</title>
+
+		<link rel="stylesheet" href="@libraries/fonts.css" />
+		<link rel="stylesheet" href="@libraries/normalize.css" />
+		<link rel="stylesheet" href="@libraries/milligram.css" />
+
+		<link rel="stylesheet" href="@stylesheets/globals.sass" />
+
+		<link rel="stylesheet" href="@stylesheets/account.sass" />
+
+		<link rel="stylesheet" id="dark-mode-stylesheet" href="@stylesheets/dark-mode.sass" />
+	</head>
+	<body>
+		<div class="container wrapper">
+			<form id="newAccountForm" class="form" action="" method="POST">
+				<h1 class="header">Account toe voegen</h1>
+				<label for="school">School</label>
+				<input
+					autofocus
+					required
+					type="text"
+					placeholder="Vul de naam van je school (gedeeltelijk) in"
+					name="school"
+					id="school"
+				/>
+				<br />
+				<label for="username">Gebruikersnaam / Leerlingnummer</label>
+				<input
+					required
+					type="text"
+					placeholder="Vul je gebruikersnaam / leerlingnummer in"
+					name="username"
+					id="username"
+				/>
+				<br />
+				<label for="username">Wachtwoord</label>
+				<input
+					required
+					type="password"
+					placeholder="Vul je wachtwoord in"
+					name="password"
+					id="password"
+				/>
+
+				<div id="message"></div>
+
+				<label for="primaryAccount"
+					><input
+						type="checkbox"
+						name="primary-account"
+						class="primary-account"
+						id="primaryAccount"
+					/>Hoofd account</label
+				>
+
+				<input type="submit" class="button" value="Voeg toe" />
+			</form>
+		</div>
+
+		<script src="@scripts/constants.js"></script>
+		<script src="@scripts/add-account.js"></script>
+		<script src="@scripts/dark-mode.js"></script>
+	</body>
+</html>

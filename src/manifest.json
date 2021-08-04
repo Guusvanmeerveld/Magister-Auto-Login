@@ -6,7 +6,7 @@
 	"options_page": "@pages/options.html",
 	"homepage_url": "http://mb-o.nl/autologin",
 	"background": {
-		"scripts": ["/background.js"],
+		"scripts": ["/events.js"],
 		"persistent": true
 	},
 	"browser_action": {

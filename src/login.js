@@ -1,8 +1,7 @@
 const $ = document.querySelector.bind(document);
 
-const getSettings = (callback) => {
-	chrome.storage.sync.get(['school', 'number', 'password'], callback);
-};
+const getSettings = (callback) =>
+	chrome.storage.sync.get('accounts', ({ current, accounts }) => callback(accounts[current]));
 
 const login = () => {
 	getSettings(async ({ school, number, password }) => {

@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Options | Magister Auto-Login</title>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Opties | Magister Auto-Login</title>
 
 		<link rel="stylesheet" href="@libraries/fonts.css" />
 		<link rel="stylesheet" href="@libraries/normalize.css" />
 		<link rel="stylesheet" href="@libraries/milligram.css" />
 
 		<link rel="shortcut icon" href="@icons/128x.png" />
+
 		<link rel="stylesheet" href="@stylesheets/options.sass" />
 		<link rel="stylesheet" href="@stylesheets/materials-switches.sass" />
 
-		<link rel="stylesheet" id="dark-mode-stylesheet" disabled href="@stylesheets/dark-mode.sass" />
-	</head>
+		<link rel="stylesheet" href="@stylesheets/globals.sass" />
 
+		<link rel="stylesheet" id="dark-mode-stylesheet" href="@stylesheets/dark-mode.sass" />
+	</head>
 	<body>
-		<input type="checkbox" class="dark-mode" />
+		<div class="material-switch dark-mode-switch">
+			<label for="dark-mode-button"></label>
+			<input type="checkbox" id="dark-mode-button" class="dark-mode" />
+		</div>
 
 		<div class="container">
 			<div class="header">
@@ -23,7 +32,12 @@
 
 				<h1>Magister Auto Login</h1>
 
-				<i><small>Gemaakt door Martijn Oosterhuis & Guus van Meerveld</small></i>
+				<i
+					><small
+						>Gemaakt door <a href="https://mboosterhuis.nl">Martijn Oosterhuis</a> &
+						<a href="https://guusvanmeerveld.dev"> Guus van Meerveld</a></small
+					></i
+				>
 			</div>
 
 			<h2>Accounts</h2>
@@ -31,6 +45,7 @@
 		</div>
 
 		<script src="@scripts/constants.js"></script>
+		<script src="@scripts/dark-mode-button.js"></script>
 		<script src="@scripts/dark-mode.js"></script>
 		<script src="@scripts/accounts.js"></script>
 	</body>

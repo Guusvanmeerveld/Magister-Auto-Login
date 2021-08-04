@@ -9,7 +9,7 @@
     "sass": "^1.36.0"
   },
   "scripts": {
-    "dev": "node src/builder/watch",
+    "dev": "node src/builder && node src/builder/watch",
     "build": "node src/builder",
     "prettify": "prettier --write src"
   },

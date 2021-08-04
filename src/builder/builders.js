@@ -57,7 +57,6 @@ const fileBuilder = async (file, outPath, fileType) => {
 			file = file.replace(sassExtension, '.min.css');
 		}
 
-
 		const path = file.split('/');
 		const fileName = path[path.length - 1];
 
@@ -106,13 +105,12 @@ const replaceFileContents = (data) => {
 		Object.keys(config.paths).forEach((key) => {
 			data = data.replace(new RegExp(key, 'g'), '/' + config.paths[key]);
 		});
-
 	}
 
 	data = data.replace(new RegExp(sassExtension, 'g'), '.min.css');
 
 	if (process.env.TARGET_BROWSER != 'chrome') {
-		data = data.replace(new RegExp('chrome.', 'g'), 'browser.')
+		data = data.replace(new RegExp('chrome.', 'g'), 'browser.');
 	}
 
 	return data;
