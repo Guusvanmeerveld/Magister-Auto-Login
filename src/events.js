@@ -13,7 +13,7 @@ const updated = (tabId, changeInfo, tab) => {
 };
 
 /**
- * Run when extensions is installed
+ * Run when extension is installed
  */
 const installed = () => {
 	window.open('@pages/options.html', '_blank');

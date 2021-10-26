@@ -9,8 +9,8 @@ const removeAccount = ({ school, username }, onFinished) => {
 };
 
 const makePrimaryAccount = (username, onFinished) => {
-		chrome.storage.sync.set({ primaryAccount: username }, onFinished);
-}
+	chrome.storage.sync.set({ primaryAccount: username }, onFinished);
+};
 
 const createAccountElement = ({ username, school }, primaryAccount) => {
 	const _account = create('div');
@@ -55,17 +55,16 @@ const createAccountElement = ({ username, school }, primaryAccount) => {
 
 		_primaryAccount.innerHTML = 'Maak hoofd account';
 		_primaryAccount.classList.add('make-primary-account');
-		
+
 		_primaryAccount.addEventListener('click', (e) => {
 			e.preventDefault();
 
 			makePrimaryAccount(username, () => location.reload());
-		})
+		});
 
 		_account.appendChild(_primaryAccount);
 		_account.appendChild(_removeButton);
 	} else {
-		
 	}
 
 	_account.appendChild(_name);
@@ -75,6 +74,8 @@ const createAccountElement = ({ username, school }, primaryAccount) => {
 };
 
 const getSettings = ({ accounts, primaryAccount }) => {
+	if (!accounts) accounts = [];
+
 	const _addAccountLink = create('a');
 
 	_addAccountLink.classList.add('button');

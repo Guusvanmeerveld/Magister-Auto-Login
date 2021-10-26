@@ -2,6 +2,8 @@ $('#newAccountForm').addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	chrome.storage.sync.get('accounts', ({ accounts }) => {
+		if (!accounts) accounts = [];
+
 		const school = $('#school').value;
 		const username = $('#username').value;
 
