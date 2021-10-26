@@ -1,11 +1,15 @@
 const $ = document.querySelector.bind(document);
 
 const getSettings = (callback) =>
-	chrome.storage.sync.get('accounts', ({ current, accounts }) => callback(accounts[current]));
+	chrome.storage.sync.get(['accounts', 'primaryAccount'], ({ primaryAccount, accounts }) => {
+		if (accounts && accounts.length != 0) {
+			callback(accounts.find((account) => account.username == primaryAccount));
+		}
+	});
 
 const login = () => {
-	getSettings(async ({ school, number, password }) => {
-		const schoolPicker = $('scholenkiezer_value');
+	getSettings(async ({ school, username: number, password }) => {
+		const schoolPicker = $('#scholenkiezer_value');
 
 		if (schoolPicker) {
 			if (school) {

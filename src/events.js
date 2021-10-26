@@ -4,31 +4,34 @@
  * @param {*} changeInfo
  * @param {*} tab
  */
-const updated = (tabId, changeInfo, tab) => {
-	if (changeInfo.status == 'complete' && tab.active) {
-		chrome.tabs.executeScript(tab.ib, {
-			file: 'login.js',
-		});
-	}
+const updated = (details) => {
+	chrome.scripting.executeScript(
+		{
+			target: { tabId: details.tabId },
+			files: ['login.js'],
+		},
+		() => {}
+	);
 };
 
 /**
  * Run when extension is installed
  */
-const installed = () => {
-	window.open('@pages/options.html', '_blank');
+const installed = (reason) => {
+	if (reason === chrome.runtime.OnInstalledReason.INSTALL) {
+		chrome.tabs.create({
+			url: '@pages/options.html',
+		});
+	}
 
 	getAccounts((accounts) => {
-		chrome.storage.sync.set(
-			{
-				enabled: true,
-				accounts: accounts || [],
-			},
-			() => getAccounts(console.log)
-		);
+		chrome.storage.sync.set({
+			enabled: true,
+			accounts: accounts || [],
+		});
 	});
 
-	chrome.browserAction.setBadgeText({
+	chrome.action.setBadgeText({
 		text: 'ON',
 	});
 };
@@ -41,5 +44,13 @@ const getAccounts = (callback) => {
 	chrome.storage.sync.get('accounts', ({ accounts }) => callback(accounts));
 };
 
-chrome.tabs.onUpdated.addListener(updated);
+const filter = {
+	url: [
+		{
+			urlMatches: 'https://accounts.magister.net/*',
+		},
+	],
+};
+
+chrome.webNavigation.onCompleted.addListener(updated, filter);
 chrome.runtime.onInstalled.addListener(installed);
