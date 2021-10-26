@@ -14,7 +14,7 @@ target();
 if (config.interpreter) {
 	config.interpreter.forEach((interpreter) => {
 		const input = join(srcDir, interpreter.input);
-		const output = join(distDir, interpreter.output);
+		const output = join(distDir, process.env.TARGET_BROWSER, interpreter.output);
 
 		builder(input, output, interpreter.type);
 	});

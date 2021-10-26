@@ -30,7 +30,7 @@ watcher.on('change', async (path) => {
 
 	if (conf) {
 		const fileType = path.split('.').pop();
-		const outPath = join(distDir, conf.output);
+		const outPath = join(distDir, process.env.TARGET_BROWSER, conf.output);
 
 		await fileBuilder(path, outPath, fileType);
 	}

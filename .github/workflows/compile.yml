@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  typescript:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Setup checkout
@@ -17,5 +17,7 @@ jobs:
           node-version: 15
       - name: Install Dependencies
         run: yarn install
-      - name: Check for syntax errors
-        run: yarn build
+      - name: Build for Chrome
+        run: yarn build -t chrome
+      - name: Build for Firefox
+        run: yarn build -t firefox
