@@ -11,13 +11,23 @@ jobs:
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
-      - name: Setup NodeJS v12
+
+      - name: Setup NodeJS v15
         uses: actions/setup-node@v1
         with:
           node-version: 15
+
       - name: Install Dependencies
         run: yarn install
+
       - name: Build for Chrome
         run: yarn build -t chrome
+
       - name: Build for Firefox
         run: yarn build -t firefox
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: completed-builds
+          path: dist
